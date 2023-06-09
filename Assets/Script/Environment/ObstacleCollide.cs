@@ -8,7 +8,7 @@ public class ObstacleCollide : MonoBehaviour
     public GameObject mainAnim;
 
     void OnTriggerEnter(Collider other) {
-        Debug.Log("mc111111111111111111");
+        //Debug.Log("mc111111111111111111");
         this.gameObject.GetComponent<BoxCollider>().enabled = false;
         mainChar.GetComponent<PlayerMove>().enabled = false;
         mainAnim.GetComponent<Animator>().Play("Stumble Backwards");
