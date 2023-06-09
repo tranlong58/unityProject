@@ -8,6 +8,7 @@ public class CoinCollect : MonoBehaviour
 
     void OnTriggerEnter(Collider other) {
         coinFx.Play();
+        CollectableController.cointCount += 1;
         this.gameObject.SetActive(false);
     }
 }
