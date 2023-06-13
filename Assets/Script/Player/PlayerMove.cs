@@ -7,7 +7,9 @@ public class PlayerMove : MonoBehaviour
     public float moveSpeed = 3;
     public float leftRightSpeed = 4;
     public static bool canMove = false;
-
+    public bool isJumping = false;
+    public bool comingDown = false;
+    public GameObject playerObject;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +20,7 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed, Space.World);
-        
+
         if (canMove)
         {
             if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
@@ -36,6 +38,41 @@ public class PlayerMove : MonoBehaviour
                     transform.Translate(Vector3.right * Time.deltaTime * leftRightSpeed);
                 }
             } 
+
+            if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+            {
+                if(isJumping == false)
+                {
+                    isJumping = true;
+                    playerObject.GetComponent<Animator>().Play("Joyful Jump");
+                    StartCoroutine(JumSequence());
+                }
+            }
+        }
+
+        if(isJumping == true)
+        {
+            if(comingDown == false) 
+            {
+                transform.Translate(Vector3.up * Time.deltaTime * 4, Space.World);
+            }
+
+            if(comingDown == true) 
+            {
+                transform.Translate(Vector3.down * Time.deltaTime * 4, Space.World);
+            }
         }    
+    }
+
+    IEnumerator JumSequence()
+    {
+        float initHeight = transform.position.y;
+        yield return new WaitForSeconds(0.5f);
+        comingDown = true;
+        yield return new WaitForSeconds(0.5f);
+        isJumping = false;
+        comingDown = false;
+        playerObject.GetComponent<Animator>().Play("Run");
+        transform.position = new Vector3(transform.position.x, initHeight, transform.position.z);
     }
 }
