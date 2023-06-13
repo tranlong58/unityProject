@@ -11,32 +11,9 @@ public class WalkHorizontal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if (isLeft)
-        // {
-            // if (distance <= 7f)
-            // {
-                distance += speed*Time.deltaTime;
-                transform.Translate(new Vector3(0, 0, speed*Time.deltaTime));
-            // } 
-            // else {
-            //     distance = 0;
-            //     isLeft = false;
-            //     transform.Rotate(new Vector3(0, 180, 0));
-            // }
-        // }
-        // else
-        // {
-            // if (distance >= 7f)
-            // {
-                // distance += speed*Time.deltaTime;
-                // transform.Translate(new Vector3(0, 0, speed*Time.deltaTime));
-            // }
-            //  else {
-            //     distance = 0;
-            //     isLeft = true;
-            //     transform.Rotate(new Vector3(0, 180, 0));
-            // }
-        // }
+        distance += speed*Time.deltaTime;
+        transform.Translate(new Vector3(0, 0, speed*Time.deltaTime));
+
 
         if (distance >= 7f)
         {
