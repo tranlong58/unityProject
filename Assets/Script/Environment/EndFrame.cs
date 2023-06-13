@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class EndFrame : MonoBehaviour
 {
@@ -18,8 +19,10 @@ public class EndFrame : MonoBehaviour
     IEnumerator DisplayCoroutine() {
         coin.GetComponent<Text>().text = curCoin.GetComponent<Text>().text;
         distance.GetComponent<Text>().text = curDistance.GetComponent<Text>().text;
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
         endFrame.SetActive(true);
         scoreFrame.SetActive(false);
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(0);
     }
 }
