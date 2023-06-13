@@ -61,6 +61,9 @@ public class PlayerMove : MonoBehaviour
             {
                 transform.Translate(Vector3.down * Time.deltaTime * 4, Space.World);
             }
+        }
+        else {
+            playerObject.GetComponent<Animator>().Play("Run");
         }    
     }
 
@@ -72,7 +75,6 @@ public class PlayerMove : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         isJumping = false;
         comingDown = false;
-        playerObject.GetComponent<Animator>().Play("Run");
         transform.position = new Vector3(transform.position.x, initHeight, transform.position.z);
     }
 }

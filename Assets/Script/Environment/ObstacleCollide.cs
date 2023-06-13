@@ -14,6 +14,7 @@ public class ObstacleCollide : MonoBehaviour
         this.gameObject.GetComponent<BoxCollider>().enabled = false;
         mainChar.GetComponent<PlayerMove>().enabled = false;
         mainAnim.GetComponent<Animator>().Play("Stumble Backwards");
+        //mainAnim.GetComponent<Animator>().CrossFade("Stumble Backwards", 0.1f);
         collideAudio.Play();
         mainCamera.GetComponent<Animator>().enabled = true;
         levelControl.GetComponent<DistanceController>().enabled = false;
