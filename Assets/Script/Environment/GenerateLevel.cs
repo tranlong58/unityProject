@@ -39,7 +39,7 @@ public class GenerateLevel : MonoBehaviour
         createdSections.Add(Instantiate(sections[secNum], new Vector3(0, 0, zPos), Quaternion.identity));
         
         zPos += 70;
-        yield return new WaitForSeconds(20); 
+        yield return new WaitForSeconds(15); 
         isCreatingSection = false;
     }
 

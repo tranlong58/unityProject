@@ -6,6 +6,7 @@ public class PlayerMove : MonoBehaviour
 {
     public float moveSpeed = 3;
     public float leftRightSpeed = 4;
+    public float jumpSpeed = 4;
     public static bool canMove = false;
     public bool isJumping = false;
     public bool comingDown = false;
@@ -13,7 +14,10 @@ public class PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        // moveSpeed = 3;
+        // leftRightSpeed = 4;
+        // jumpSpeed = 4;
+        this.gameObject.name = "MAIN_PLAYER";
     }
 
     // Update is called once per frame
@@ -54,12 +58,12 @@ public class PlayerMove : MonoBehaviour
         {
             if(comingDown == false) 
             {
-                transform.Translate(Vector3.up * Time.deltaTime * 4, Space.World);
+                transform.Translate(Vector3.up * Time.deltaTime * jumpSpeed, Space.World);
             }
 
             if(comingDown == true) 
             {
-                transform.Translate(Vector3.down * Time.deltaTime * 4, Space.World);
+                transform.Translate(Vector3.down * Time.deltaTime * jumpSpeed, Space.World);
             }
         }
         else {
