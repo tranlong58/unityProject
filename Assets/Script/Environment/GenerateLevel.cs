@@ -10,7 +10,7 @@ public class GenerateLevel : MonoBehaviour
       sectionLv3  = new List<GameObject>(),
        sectionLv4  = new List<GameObject>(),
         sectionLv5 = new List<GameObject>();
-    public int zPos = 70;
+    public int zPos = 35; // length of section start
     public bool isCreatingSection = false;
     public bool isDestroyingSection = false;
     public int secNum;
@@ -18,15 +18,26 @@ public class GenerateLevel : MonoBehaviour
     public GameObject mainCharater;
     public float sectionIndex = 1;
     public PlayerMove playerMove;
+    public int oldLevel = 1;
+    public int newLevel = 1;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        oldLevel = 1;
+        newLevel = 1;
+        zPos = 35;
         level = 1;
         countSection = 0;
         sectionIndex = 1;
         playerMove = mainCharater.GetComponent<PlayerMove>();
+
+        // create start section
+        secNum = Random.Range(0, sectionLv1.Count);
+        createdSections.Add(Instantiate(sectionLv1[secNum], new Vector3(0, 0, zPos), Quaternion.identity));
+        countSection += 1;
+        zPos += 70;
     }
 
     // Update is called once per frame
@@ -34,27 +45,46 @@ public class GenerateLevel : MonoBehaviour
     {
         // update speed
         sectionIndex = ((mainCharater.transform.position.z + 4) / 70f) + 1; // 4 is initial position
-
-        if (sectionIndex <= 3)
+        newLevel = oldLevel;
+        // if (sectionIndex >= 0)
+        // {
+        //     playerMove.moveSpeed *= 1;
+        // } else 
+        if (sectionIndex >= 3 && oldLevel == 1)
         {
-            playerMove.moveSpeed = 3;
-        } else if (sectionIndex <= 6)
+            playerMove.moveSpeed += 1;
+            playerMove.leftRightSpeed += 1;
+            playerMove.jumpSpeed += 1;
+            newLevel = 2;
+            Debug.Log(playerMove.moveSpeed);
+            Debug.Log(sectionIndex);
+        } else if (sectionIndex >= 7 && oldLevel == 2)
         {
-            playerMove.moveSpeed = 4;
-        } else if (sectionIndex <= 10)
+            playerMove.moveSpeed += 1;
+            playerMove.leftRightSpeed += 1;
+            playerMove.jumpSpeed += 1;
+            newLevel = 3;
+        } else if (sectionIndex >= 10 && oldLevel == 3)
         {
-            playerMove.moveSpeed = 5;
-        } else if (sectionIndex <= 14)
-        {
-            playerMove.moveSpeed = 6;
-        } else {
-            playerMove.moveSpeed = 7;
+            playerMove.moveSpeed += 1;
+            playerMove.leftRightSpeed += 1;
+            playerMove.jumpSpeed += 1;
+            newLevel = 4;
+        } else if (oldLevel == 4) {
+            playerMove.moveSpeed += 1;
+            playerMove.leftRightSpeed += 1;
+            playerMove.jumpSpeed += 1;
+            newLevel = 5;
+            Debug.Log(playerMove.moveSpeed);
+            Debug.Log(sectionIndex);
         }
+        oldLevel = newLevel;
 
 
         // update level
         if (countSection <= 2)
         {
+            // level = 5;
             level = 1;
         } else if (countSection <= 5)
         {
@@ -106,7 +136,6 @@ public class GenerateLevel : MonoBehaviour
             secNum = Random.Range(0, sectionLv5.Count);
             createdSections.Add(Instantiate(sectionLv5[secNum], new Vector3(0, 0, zPos), Quaternion.identity));
         } 
-
         
         countSection += 1;
         zPos += 70;
@@ -118,7 +147,7 @@ public class GenerateLevel : MonoBehaviour
 
         
         
-        if (createdSections.Count > 2)
+        if (createdSections.Count > 3)
         {
             Destroy(createdSections[0]);
             createdSections.RemoveAt(0);

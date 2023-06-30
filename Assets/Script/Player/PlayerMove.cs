@@ -14,9 +14,9 @@ public class PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // moveSpeed = 3;
-        // leftRightSpeed = 4;
-        // jumpSpeed = 4;
+        moveSpeed = 3;
+        leftRightSpeed = 4;
+        jumpSpeed = 4;
         this.gameObject.name = "MAIN_PLAYER";
     }
 
@@ -74,9 +74,9 @@ public class PlayerMove : MonoBehaviour
     IEnumerator JumSequence()
     {
         float initHeight = transform.position.y;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.8f);
         comingDown = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.8f);
         isJumping = false;
         comingDown = false;
         transform.position = new Vector3(transform.position.x, initHeight, transform.position.z);
