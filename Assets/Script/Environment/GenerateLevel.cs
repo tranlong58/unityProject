@@ -75,8 +75,6 @@ public class GenerateLevel : MonoBehaviour
             playerMove.leftRightSpeed += 1;
             playerMove.jumpSpeed += 1;
             newLevel = 5;
-            Debug.Log(playerMove.moveSpeed);
-            Debug.Log(sectionIndex);
         }
         oldLevel = newLevel;
 
@@ -139,7 +137,7 @@ public class GenerateLevel : MonoBehaviour
         
         countSection += 1;
         zPos += 70;
-        yield return new WaitForSeconds(15); 
+        yield return new WaitForSeconds(70/(playerMove.moveSpeed + 5)); 
         isCreatingSection = false;
     }
 
@@ -153,7 +151,7 @@ public class GenerateLevel : MonoBehaviour
             createdSections.RemoveAt(0);
              
         }
-        yield return new WaitForSeconds(25);
+        yield return new WaitForSeconds(70/(playerMove.moveSpeed - 2));
         isDestroyingSection = false;
     }
 }

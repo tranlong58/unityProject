@@ -23,6 +23,7 @@ public class EndFrame : MonoBehaviour
         endFrame.SetActive(true);
         scoreFrame.SetActive(false);
         yield return new WaitForSeconds(3);
+        CollectableController.cointCount = 0;
         SceneManager.LoadScene(0);
     }
 }
