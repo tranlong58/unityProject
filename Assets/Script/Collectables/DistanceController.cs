@@ -8,7 +8,12 @@ public class DistanceController : MonoBehaviour
     public int distance;
     public bool isIncreasing = false;
     public GameObject distanceDisplay;
-    public float distanceTime = 0.35f;
+    public GameObject mainCharater;
+    public PlayerMove playerMove;
+
+    void Start() {
+        playerMove = mainCharater.GetComponent<PlayerMove>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -22,7 +27,7 @@ public class DistanceController : MonoBehaviour
     IEnumerator DistanceCoroutine() {
         distance += 1;
         distanceDisplay.GetComponent<Text>().text = "" + distance;
-        yield return new WaitForSeconds(distanceTime);
+        yield return new WaitForSeconds(1.05f/playerMove.moveSpeed);
         isIncreasing = false;
     }
 }

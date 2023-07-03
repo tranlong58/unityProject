@@ -21,6 +21,10 @@ public class GenerateLevel : MonoBehaviour
     public int oldLevel = 1;
     public int newLevel = 1;
 
+    public GameObject sun;
+    public SunController sunController;
+    public bool isContextRemaining = true;
+
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +42,8 @@ public class GenerateLevel : MonoBehaviour
         createdSections.Add(Instantiate(sectionLv1[secNum], new Vector3(0, 0, zPos), Quaternion.identity));
         countSection += 1;
         zPos += 70;
+
+        sunController = sun.GetComponent<SunController>();
     }
 
     // Update is called once per frame
@@ -58,23 +64,36 @@ public class GenerateLevel : MonoBehaviour
             newLevel = 2;
             Debug.Log(playerMove.moveSpeed);
             Debug.Log(sectionIndex);
+
+            sunController.randomContext();
         } else if (sectionIndex >= 7 && oldLevel == 2)
         {
             playerMove.moveSpeed += 1;
             playerMove.leftRightSpeed += 1;
             playerMove.jumpSpeed += 1;
             newLevel = 3;
+
+            sunController.randomContext();
         } else if (sectionIndex >= 10 && oldLevel == 3)
         {
             playerMove.moveSpeed += 1;
             playerMove.leftRightSpeed += 1;
             playerMove.jumpSpeed += 1;
             newLevel = 4;
+
+            sunController.randomContext();
         } else if (oldLevel == 4) {
             playerMove.moveSpeed += 1;
             playerMove.leftRightSpeed += 1;
             playerMove.jumpSpeed += 1;
             newLevel = 5;
+
+            sunController.randomContext();
+        } else {
+            if (isContextRemaining == false)
+            {
+                StartCoroutine(RandomContextLv5());
+            }
         }
         oldLevel = newLevel;
 
@@ -142,8 +161,6 @@ public class GenerateLevel : MonoBehaviour
     }
 
     IEnumerator DestroySection() {
-
-        
         
         if (createdSections.Count > 3)
         {
@@ -153,5 +170,12 @@ public class GenerateLevel : MonoBehaviour
         }
         yield return new WaitForSeconds(70/(playerMove.moveSpeed - 2));
         isDestroyingSection = false;
+    }
+
+    IEnumerator RandomContextLv5() {
+        isContextRemaining = true;
+        sunController.randomContext();
+        yield return new WaitForSeconds(280/(playerMove.moveSpeed + 5));
+         isContextRemaining = false;
     }
 }
